@@ -1,0 +1,34 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: mcm-git-demo-app
+  namespace: mcm-git-demo-app
+  generation: 1
+  labels:
+    app: mcm-git-demo-app
+spec:
+  name: ''
+  channel: mcm-git-demo-app/mcm-git-demo-app-channel
+  placement:
+    placementRef:
+      name: mcm-git-demo-app-placement
+      kind: PlacementRule
+  packageFilter:
+    labelSelector:
+      matchLabels:
+        app: mcm-git-demo-app
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: mcm-git-demo-app-placement
+  namespace: mcm-git-demo-app
+  generation: 1
+  labels:
+    app: mcm-git-demo-app
+spec:
+  clusterLabels:
+    matchLabels:
+      environment: Test
+      region: EU
+  clusterReplicas: 1

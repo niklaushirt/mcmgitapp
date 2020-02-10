@@ -1,0 +1,15 @@
+#kubectl create ns cloud-university-app
+#kubectl create ns cloud-university-app-channel
+
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcm-git-demo-app
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcm-git-demo-app-channel
+
+
