@@ -1,0 +1,11 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: k8s-demo-app-web
+  name: k8s-demo-app-web-config
+data:
+  backend-url: http://k8s-demo-app-backend-service.apps.91.121.172.228.nip.io/api
+  application-name: k8s-demo-app-web
+spec:

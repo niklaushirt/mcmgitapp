@@ -1,0 +1,14 @@
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: k8s-demo-app-backend
+  name: k8s-demo-app-backend-route
+spec:
+  host: k8s-demo-app-backend-service.apps.91.121.172.228.nip.io
+  to:
+    kind: Service
+    name: k8s-demo-app-backend-service
+    weight: 100
+  wildcardPolicy: None

@@ -1,0 +1,60 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-demo-app-backend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-demo-app-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "30%"
+      maxSurge: "90%"
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-app-backend
+        version: current
+    spec:
+      containers:
+      - name: k8s-demo-app-backend
+        image: niklaushirt/k8sdemo-backend:1.0.0
+        imagePullPolicy: IfNotPresent 
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "50Mi"
+          limits:
+            cpu: "50m"
+            memory: "50Mi"
+        env:
+          - name: PORT
+            value : "3000"
+          - name: APPLICATION_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: k8s-demo-app-backend-config
+                key: application-name
+          - name: BACKEND_MESSAGE
+            valueFrom:
+              configMapKeyRef:
+                name: k8s-demo-app-backend-config
+                key: backend-message

@@ -1,0 +1,11 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: k8s-demo-app-backend
+  name: k8s-demo-app-backend-config
+data:
+  backend-message: "Hi there from the Demo App..."
+  application-name: k8s-demo-app-backend
+spec:
